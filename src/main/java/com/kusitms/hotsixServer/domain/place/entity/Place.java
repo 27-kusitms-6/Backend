@@ -1,9 +1,6 @@
 package com.kusitms.hotsixServer.domain.place.entity;
 
-import com.kusitms.hotsixServer.domain.user.entity.User;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 
 @AllArgsConstructor
@@ -34,10 +31,20 @@ public class Place {
     private float starRating;
 
     @Column(name = "region")
-    private float region;
+    private String region;
 
-    @Column(name = "bookmark_count")
-    @ColumnDefault("0")
+    @Column(name = "bookmark_count", columnDefinition = "int default 0")
     private int bookmarkCount;
+
+    @Column(name = "review_count", columnDefinition = "int default 0")
+    private int reviewCount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category1_id", referencedColumnName = "category1_id")
+    private Category1 category1;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category2_id", referencedColumnName = "category2_id")
+    private Category2 category2;
 
 }
