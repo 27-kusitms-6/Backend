@@ -23,6 +23,8 @@ public class PlaceDetailRes {
         private int reviewCount;
         private String[] top2PositiveStickers;
         private String[] top2NegativeStickers;
+        private String[] top2PositiveStickerName;
+        private String[] top2NegativeStickerName;
         private int[] top2PositiveStickerCount;
         private int[] top2NegativeStickerCount;
         private char isBookmarked;
