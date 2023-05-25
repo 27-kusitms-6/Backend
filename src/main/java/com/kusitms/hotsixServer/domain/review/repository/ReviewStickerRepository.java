@@ -18,6 +18,12 @@ public interface ReviewStickerRepository extends JpaRepository<ReviewSticker, Lo
     @Query("SELECT rs.sticker.url, COUNT(rs.sticker) AS stickerCount FROM ReviewSticker rs WHERE rs.review.place = :place AND rs.isPositive = 'N' GROUP BY rs.sticker ORDER BY stickerCount DESC")
     List<Object[]> findTopNegativeStickersByPlace(@Param("place") Place place, Pageable pageable);
 
+    @Query("SELECT rs.sticker.name, COUNT(rs.sticker) AS stickerCount FROM ReviewSticker rs WHERE rs.review.place = :place AND rs.isPositive = 'Y' GROUP BY rs.sticker ORDER BY stickerCount DESC")
+    List<Object[]> findTopPositiveStickerNameByPlace(@Param("place") Place place, Pageable pageable);
+
+    @Query("SELECT rs.sticker.name, COUNT(rs.sticker) AS stickerCount FROM ReviewSticker rs WHERE rs.review.place = :place AND rs.isPositive = 'N' GROUP BY rs.sticker ORDER BY stickerCount DESC")
+    List<Object[]> findTopNegativeStickerNameByPlace(@Param("place") Place place, Pageable pageable);
+
     @Query("SELECT COUNT(rs.sticker) FROM ReviewSticker rs WHERE rs.review.place = :place AND rs.isPositive = 'Y' GROUP BY rs.sticker ORDER BY COUNT(rs.sticker) DESC")
     List<Long> findTopPositiveStickerCountsByPlace(@Param("place") Place place, Pageable pageable);
 

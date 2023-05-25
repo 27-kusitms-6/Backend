@@ -66,6 +66,8 @@ public class PlaceDetailService {
 
         String[] top2PositiveStickers = getTopPositiveStickers(place);
         String[] top2NegativeStickers = getTopNegativeStickers(place);
+        String[] top2PositiveStickerName = getTopPositiveStickerName(place);
+        String[] top2NegativeStickerName = getTopNegativeStickerName(place);
         int[] top2PositiveStickerCount = getStickerCounts(place, true);
         int[] top2NegativeStickerCount = getStickerCounts(place, false);
 
@@ -79,6 +81,8 @@ public class PlaceDetailService {
                 .reviewCount(reviews.size())
                 .top2PositiveStickers(top2PositiveStickers)
                 .top2NegativeStickers(top2NegativeStickers)
+                .top2PositiveStickerName(top2PositiveStickerName)
+                .top2NegativeStickerName(top2NegativeStickerName)
                 .top2PositiveStickerCount(top2PositiveStickerCount)
                 .top2NegativeStickerCount(top2NegativeStickerCount)
                 .isBookmarked(checkBookmark(user, place))
@@ -122,6 +126,31 @@ public class PlaceDetailService {
 
     public String[] getTopNegativeStickers(Place place) {
         List<Object[]> result = reviewStickerRepository.findTopNegativeStickersByPlace(place, PageRequest.of(0, 2));
+        String[] topNegativeStickers = new String[result.size()];
+
+        for (int i = 0; i < result.size(); i++) {
+            Object[] row = result.get(i);
+            String stickerName = (String) row[0];
+            topNegativeStickers[i] = stickerName;
+        }
+
+        return topNegativeStickers;
+    }
+
+    public String[] getTopPositiveStickerName(Place place) {
+        List<Object[]> result = reviewStickerRepository.findTopPositiveStickerNameByPlace(place, PageRequest.of(0, 2));
+        String[] topPositiveStickers = new String[result.size()];
+
+        for (int i = 0; i < result.size(); i++) {
+            Object[] row = result.get(i);
+            String stickerName = (String) row[0];
+            topPositiveStickers[i] = stickerName;
+        }
+
+        return topPositiveStickers;
+    }
+    public String[] getTopNegativeStickerName(Place place) {
+        List<Object[]> result = reviewStickerRepository.findTopNegativeStickerNameByPlace(place, PageRequest.of(0, 2));
         String[] topNegativeStickers = new String[result.size()];
 
         for (int i = 0; i < result.size(); i++) {
